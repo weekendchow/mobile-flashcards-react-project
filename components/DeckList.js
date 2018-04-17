@@ -1,21 +1,51 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, FlatList, StyleSheet, Dimensions, Platform, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { purple } from '../utils/colors'
+import { purple, white } from '../utils/colors'
 import { receiveDecks, addDeck} from '../actions'
 import { getDecks } from '../utils/api'
+import SingleDeck from './SingleDeck'
+import { AppLoading } from 'expo'
 
 class DeckList extends Component  {
+  state = {
+    ready: false
+  }
+
   componentDidMount() {
     const { dispatch } = this.props
 
     getDecks()
       .then((decks) => dispatch(receiveDecks(decks)))
+      .then(() => this.setState(() => ({ready: true})))
   }
+
+  renderItem = ({item}) => (
+    <View style={styles.item}>
+      <TouchableOpacity
+        onPress={() => this.props.navigation.navigate('DeckDetail', item)}>
+        <SingleDeck
+          title={item.title}
+          questions={item.questions}/>
+      </TouchableOpacity>
+    </View>
+  )
+
   render () {
+    console.log('Props',this.props)
+    const { decks } = this.props
+    const { ready } = this.state
+
+    if(ready === false){
+      return <AppLoading />
+    }
+
     return (
-      <View>
-        <Text>{JSON.stringify(this.props)}</Text>
+      <View style={styles.deck}>
+        <FlatList
+          data={Object.values(decks)}
+          renderItem={this.renderItem}
+          keyExtractor={(item, index) => index}/>
       </View>
     )
   }
@@ -26,5 +56,29 @@ function mapStateToProps(decks) {
     decks
   }
 }
+
+const styles = StyleSheet.create({
+  deck: {
+    flexDirection: 'row',
+    height: Dimensions.get('window').height
+  },
+  item: {
+    backgroundColor: white,
+    borderRadius: Platform.OS === 'ios' ? 16 : 2,
+    padding: 20,
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 17,
+    justifyContent: 'center',
+    shadowRadius: 3,
+    shadowOpacity: 0.8,
+    shadowColor: 'rgba(0,0,0,0.24)',
+    shadowOffset: {
+      width: 1,
+      height: 3,
+    }
+  },
+})
+
 
 export default connect(mapStateToProps)(DeckList)
