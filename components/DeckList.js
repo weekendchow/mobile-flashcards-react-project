@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { View, Text, FlatList, StyleSheet, Dimensions, Platform, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { purple, white } from '../utils/colors'
-import { receiveDecks, addDeck} from '../actions'
+import { purple, white, gray } from '../utils/colors'
+import { receiveDecks, addDeck } from '../actions'
 import { getDecks } from '../utils/api'
-import SingleDeck from './SingleDeck'
 import { AppLoading } from 'expo'
 
 class DeckList extends Component  {
@@ -24,9 +23,12 @@ class DeckList extends Component  {
     <View style={styles.item}>
       <TouchableOpacity
         onPress={() => this.props.navigation.navigate('DeckDetail', item)}>
-        <SingleDeck
-          title={item.title}
-          questions={item.questions}/>
+        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            <Text style={{fontSize: 24}}>{item.title}</Text>
+            <Text style={{fontSize: 18, color: gray}}>
+                {item.questions && item.questions.length} cards
+            </Text>
+        </View>
       </TouchableOpacity>
     </View>
   )
@@ -66,6 +68,7 @@ const styles = StyleSheet.create({
     backgroundColor: white,
     borderRadius: Platform.OS === 'ios' ? 16 : 2,
     padding: 20,
+    height: 120,
     marginLeft: 10,
     marginRight: 10,
     marginTop: 17,
