@@ -3,7 +3,7 @@ import { View, Text, FlatList, StyleSheet, Dimensions, Platform, TouchableOpacit
 import { connect } from 'react-redux'
 import { purple, white, gray } from '../utils/colors'
 import { receiveDecks, addDeck } from '../actions'
-import { getDecks } from '../utils/api'
+import { getDecks, deleteDeck } from '../utils/api'
 import { AppLoading, } from 'expo'
 
 class DeckList extends Component  {
