@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { purple, white, gray } from '../utils/colors'
 import { receiveDecks, addDeck } from '../actions'
 import { getDecks } from '../utils/api'
-import { AppLoading } from 'expo'
+import { AppLoading, } from 'expo'
 
 class DeckList extends Component  {
   state = {
@@ -24,7 +24,7 @@ class DeckList extends Component  {
       <TouchableOpacity
         onPress={() => this.props.navigation.navigate('DeckDetail', item)}>
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
-            <Text style={{fontSize: 24}}>{item.title}</Text>
+            <Text style={{fontSize: 24, color: purple}}>{item.title}</Text>
             <Text style={{fontSize: 18, color: gray}}>
                 {item.questions && item.questions.length} cards
             </Text>
@@ -53,16 +53,10 @@ class DeckList extends Component  {
   }
 }
 
-function mapStateToProps(decks) {
-  return {
-    decks
-  }
-}
-
 const styles = StyleSheet.create({
   deck: {
     flexDirection: 'row',
-    height: Dimensions.get('window').height
+    height: Dimensions.get('window').height - 75
   },
   item: {
     backgroundColor: white,
@@ -83,5 +77,10 @@ const styles = StyleSheet.create({
   },
 })
 
+function mapStateToProps(decks) {
+  return {
+    decks
+  }
+}
 
 export default connect(mapStateToProps)(DeckList)

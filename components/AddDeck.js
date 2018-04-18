@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, KeyboardAvoidingView, Keyboard, TextInput, TouchableOpacity, Platform, Alert } from 'react-native'
+import { Text, StyleSheet, KeyboardAvoidingView, TextInput, TouchableOpacity, Platform, Alert } from 'react-native'
 import { purple, white, gray } from '../utils/colors'
 import { addDeck } from '../actions'
 import { connect } from 'react-redux'
@@ -45,8 +45,6 @@ class AddDeck extends Component {
 
     }
 
-
-
   }
 
   toHome = () => {
@@ -65,8 +63,6 @@ class AddDeck extends Component {
           style={styles.inputText}
           placeholder="Deck Tiltle"
           value={this.state.text}
-          maxLength = {10}
-          numberOfLines = {4}
           onChangeText={(text) => {
             this.setState({text})
           }}
@@ -92,6 +88,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     padding:10,
+    height: 40,
     marginLeft: 30,
     marginRight: 30,
     marginTop: 40,
@@ -134,7 +131,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
     return {
         decks: state,
-    };
+    }
 }
 
 export default connect(mapStateToProps)(AddDeck)

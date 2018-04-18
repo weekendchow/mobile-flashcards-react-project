@@ -46,14 +46,35 @@ export function getDecks() {
 }
 
 
-export function getDeck() {
-// take in a single id argument and return the deck associated with that id.
+export function getDeck(deckID) {
+  return AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
+    .then((results) => {
+      let decks = JSON.parse(results)
+
+      return decks.deckID
+
+    })
 }
 
 export function saveDeckTitle(deck) {
   return AsyncStorage.mergeItem(FLASHCARDS_STORAGE_KEY, JSON.stringify(deck))
 }
 
-export function addCardToDeck() {
-// take in two arguments, title and card, and will add the card to the list of questions for the deck with the associated title.
+export function addCardToDeck(card, deckTitle) {
+  return AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
+    .then((results) => {
+      let decks = JSON.parse(results)
+
+      let newQuestions = JSON.parse(JSON.stringify(decks[deckTitle].questions));
+      newQuestions[newQuestions.length] = card
+
+      const value = JSON.stringify({
+          [deckTitle]: {title: deckTitle, questions: newQuestions},
+      })
+      AsyncStorage.mergeItem(FLASHCARDS_STORAGE_KEY, value)
+    })
+}
+
+export function deleteDeck() {
+  return AsyncStorage.clear()
 }
