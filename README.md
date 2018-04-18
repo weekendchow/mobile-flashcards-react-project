@@ -16,7 +16,8 @@ This project was bootstrapped with [Create React Native App](https://github.com/
     $ npm start
     ```
 To view this app with live reloading, you will need to download [Expo](https://expo.io/) on youe phone and point the to the `QR code`.
-Or you can open the emulator by press `i` for iOS device or `a` for Android device
+Or you can open the emulator by press `i` for iOS device or `a` for Android device.
+
 **This app is tested on ios emulator**
 
 ## Toggle butween pages
