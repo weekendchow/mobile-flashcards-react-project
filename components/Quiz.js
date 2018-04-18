@@ -17,6 +17,32 @@ class Quiz extends Component {
     showFinish: false
   }
 
+  correctSubmit = () => {
+    if(this.props.deck.questions.length > this.state.currentQuestion){
+      this.setState({
+        currentQuestion: this.state.currentQuestion+1,
+        correct: this.state.correct+1,
+      })
+    }else{
+      this.setState({
+        correct: this.state.correct+1,
+        showFinish: true
+      })
+    }
+  }
+
+  incorrectSubmit = () => {
+    if(this.props.deck.questions.length > this.state.currentQuestion){
+      this.setState({
+        currentQuestion: this.state.currentQuestion+1,
+      })
+    }else{
+      this.setState({
+        showFinish: true
+      })
+    }
+  }
+
   restartQuiz = () => {
     this.props.navigation.navigate(
       'Quiz', {
@@ -43,7 +69,7 @@ class Quiz extends Component {
     if(!showFinish) {
       return (
         <View style={styles.containerQuiz}>
-          <Text style={{color: purple, alignSelf:'flex-start'}}>
+          <Text style={{color: purple}}>
             {currentQuestion +'/'+ questions.length}
           </Text>
           <Text style={styles.question}>
@@ -67,34 +93,12 @@ class Quiz extends Component {
           <View style={{flex:1, justifyContent: 'flex-end'}}>
             <TouchableOpacity
               style={styles.correctBtn}
-              onPress={() => {
-                if(questions.length > currentQuestion){
-                  this.setState({
-                    currentQuestion: currentQuestion+1,
-                    correct: correct+1,
-                  })
-                }else{
-                  this.setState({
-                    correct:this.state.correct+1,
-                    showFinish:true
-                  })
-                }
-              }}>
+              onPress={this.correctSubmit}>
               <Text style={styles.submitBtnText}>Correct</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.incorrectBtn}
-              onPress={() => {
-                if(questions.length > currentQuestion){
-                  this.setState({
-                    currentQuestion: currentQuestion+1,
-                  })
-                }else{
-                  this.setState({
-                    showFinish:true
-                  })
-                }
-              }}>
+              onPress={this.incorrectSubmit}>
               <Text style={styles.submitBtnText}>Incorrect</Text>
             </TouchableOpacity>
           </View>
