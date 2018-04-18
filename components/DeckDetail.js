@@ -33,7 +33,7 @@ class DeckDetail extends Component {
     )
 
     clearLocalNotification()
-    .then(setLocalNotification)
+    .then(setLocalNotification())
   }
 
   componentDidMount(){
