@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Text, StyleSheet, KeyboardAvoidingView, TextInput, TouchableOpacity, Platform, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import { addQuestion } from '../actions'
-import { addCardToDeck, getDeck } from '../utils/api'
+import { addCardToDeck } from '../utils/api'
 import { purple, gray, white } from '../utils/colors'
 
 class AddQuestion extends Component {
@@ -16,7 +16,6 @@ class AddQuestion extends Component {
     question:'',
     answer:''
   }
-
 
   submit = () => {
     const question = this.state.question

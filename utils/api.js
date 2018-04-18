@@ -30,14 +30,12 @@ let decks = {
 export function getDecks() {
   return AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
     .then((results) => {
-      console.log('Data from helpers!',results)
       if(JSON.parse(results) !== null) {
         return JSON.parse(results)
       } else {
         AsyncStorage.setItem(FLASHCARDS_STORAGE_KEY, JSON.stringify(decks))
         return AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
           .then((results) => {
-            console.log('Data from helpers!',results)
             return JSON.parse(results)
           })
 
@@ -45,13 +43,11 @@ export function getDecks() {
     })
 }
 
-
-export function getDeck(deckID) {
+export function getDeck(deckTitle) {
   return AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
     .then((results) => {
       let decks = JSON.parse(results)
-
-      return decks.deckID
+      return decks[deckTitle]
 
     })
 }
