@@ -32,26 +32,22 @@ class AddDeck extends Component {
 
       saveDeckTitle(newDeck)
 
+      Alert.alert(
+        'Successful', 'Deck Added',
+        [
+          {text: 'OK', onPress: () => this.props.navigation.navigate('DeckDetail', {
+            title: entry.text
+          })},
+        ],
+      )
+      
       this.setState(() => ({
         text: ''
       }))
 
-      Alert.alert(
-        'Successful', 'Deck Added',
-        [
-          {text: 'OK', onPress: () => this.toHome()},
-        ],
-      )
-
     }
-
   }
 
-  toHome = () => {
-    this.props.navigation.dispatch(NavigationActions.back({
-      key: 'AddDeck'
-    }))
-  }
 
   render() {
     console.log('Props', this.props)
