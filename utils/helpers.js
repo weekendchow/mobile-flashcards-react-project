@@ -5,6 +5,7 @@ import { Notifications,Permissions } from 'expo'
 const NOTIFICATION_KEY = 'Flashcards: notification'
 
 export function setLocalNotification() {
+
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
     .then((data) => {
@@ -12,7 +13,7 @@ export function setLocalNotification() {
         Permissions.askAsync(Permissions.NOTIFICATIONS)
           .then(({ status }) => {
             if(status === 'granted') {
-              Notification.cancelAllScheduledNotificationsAsync()
+              Notifications.cancelAllScheduledNotificationsAsync()
 
               let tomorrow = new Date()
               tomorrow.setDate(tomorrow.getDate() + 1)
@@ -32,4 +33,25 @@ export function setLocalNotification() {
           })
       }
     })
+}
+
+export function clearLocalNotification() {
+  return AsyncStorage.removeItem(NOTIFICATION_KEY)
+    .then(Notifications.cancelAllScheduledNotificationsAsync())
+}
+
+export function createNotification() {
+  return {
+    title: 'Start your Quiz!',
+    body: "👋 Don't forget to learn today!",
+    ios: {
+      sound: true,
+    },
+    android: {
+      sound: true,
+      priority: 'high',
+      sticky: false,
+      vibrate: true,
+    }
+  }
 }

@@ -54,8 +54,6 @@ class AddQuestion extends Component {
 }
 
   render() {
-    console.log('State',this.state)
-    console.log('Props',this.props)
     return (
       <KeyboardAvoidingView style={styles.container}  behavior="padding">
         <TextInput

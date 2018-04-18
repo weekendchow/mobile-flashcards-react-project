@@ -34,7 +34,6 @@ class DeckList extends Component  {
   )
 
   render () {
-    console.log('Props',this.props)
     const { decks } = this.props
     const { ready } = this.state
 

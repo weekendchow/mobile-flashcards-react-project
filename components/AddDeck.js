@@ -12,21 +12,21 @@ class AddDeck extends Component {
   }
 
   submit = () => {
-    const entry = this.state
+    const text = this.state
     const { decks } = this.props;
 
-    if(!entry.text){
+    if(!text){
       Alert.alert(
         'Mandatory',
         'Deck Name cannot be empty'
       )
-    }else if(decks[entry.text]) {
+    }else if(decks[text]) {
       Alert.alert(
         'Error!',
         'Deck Already exists'
       )
     }else {
-      const newDeck = {[entry.text]: {title: entry.text, questions: []}};
+      const newDeck = {[text]: {title: text, questions: []}};
 
       this.props.dispatch(addDeck(newDeck))
 
@@ -36,11 +36,11 @@ class AddDeck extends Component {
         'Successful', 'Deck Added',
         [
           {text: 'OK', onPress: () => this.props.navigation.navigate('DeckDetail', {
-            title: entry.text
+            title: text
           })},
         ],
       )
-      
+
       this.setState(() => ({
         text: ''
       }))
@@ -50,8 +50,6 @@ class AddDeck extends Component {
 
 
   render() {
-    console.log('Props', this.props)
-    console.log('State', this.state)
     return (
       <KeyboardAvoidingView style={styles.container}  behavior="padding">
         <Text style={styles.center}>What is the title of your new Deck?</Text>

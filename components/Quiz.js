@@ -44,21 +44,19 @@ class Quiz extends Component {
   }
 
   restartQuiz = () => {
+    this.props.navigation.goBack()
     this.props.navigation.navigate(
       'Quiz', {
         questions: this.props.deck.questions,
         deck: this.props.deck.title
-      }
+      },
     )
+
+
   }
 
   backToDeck = () => {
-    this.props.navigation.navigate(
-      'DeckDetail', {
-        questions: this.props.deck.questions,
-        title: this.props.deck.title
-      }
-    )
+    this.props.navigation.goBack()
   }
 
   render () {

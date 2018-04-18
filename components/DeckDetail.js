@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, StyleSheet, View, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { purple, white, gray } from '../utils/colors'
+import { setLocalNotification, clearLocalNotification } from '../utils/helpers'
 
 class DeckDetail extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -27,10 +28,12 @@ class DeckDetail extends Component {
   startQuiz = () => {
     this.props.navigation.navigate(
       'Quiz', {
-        questions: this.state.deck.questions,
         deck: this.state.deck.title
       }
     )
+
+    clearLocalNotification()
+    .then(setLocalNotification)
   }
 
   componentDidMount(){
@@ -47,8 +50,6 @@ class DeckDetail extends Component {
 
   render() {
     const deck = this.state.deck
-    console.log("Props", this.props)
-    console.log("State", this.state)
 
     return (
       <View style={styles.container}>
