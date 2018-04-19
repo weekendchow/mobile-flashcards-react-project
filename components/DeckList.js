@@ -22,7 +22,7 @@ class DeckList extends Component  {
   renderItem = ({item}) => (
     <View style={styles.item}>
       <TouchableOpacity
-        onPress={() => this.props.navigation.navigate('DeckDetail', item)}>
+        onPress={() => this.props.navigation.navigate('DeckDetail', {title: item.title})}>
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
             <Text style={{fontSize: 24, color: purple}}>{item.title}</Text>
             <Text style={{fontSize: 18, color: gray}}>
@@ -46,7 +46,7 @@ class DeckList extends Component  {
         <FlatList
           data={Object.values(decks)}
           renderItem={this.renderItem}
-          keyExtractor={(item, index) => index}/>
+          keyExtractor={(item, index) => item.title}/>
       </View>
     )
   }
